@@ -1,6 +1,6 @@
-import { app, server } from './socketfile';
+import { app, server } from './server/socketfile';
 import express from 'express';
-import storage from './memoryStorage';
+import storage from './server/memoryStorage';
 
 app.use(express.json());
 

@@ -4,8 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --exec babel-node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node build/index.js",
+    "build": "npm run remove:build && babel index.js -d build && babel server -d build/server",
+    "remove:build": "rm -rf ./build",
+    "start:dev": "nodemon --exec babel-node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "heroku-postbuild": "npm run build"
   },
   "repository": {
     "type": "git",
