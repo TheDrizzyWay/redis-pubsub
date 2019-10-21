@@ -11,9 +11,9 @@ const server = http.createServer(app);
 const io = socket(server);
 dotenv.config();
 
-const { REDIS_HOST, REDIS_PORT } = process.env;
-let pubClient = redis.createClient(REDIS_PORT, REDIS_HOST);
-let subClient = redis.createClient(REDIS_PORT, REDIS_HOST, { return_buffers: true });
+const { REDIS_URL } = process.env;
+let pubClient = redis.createClient(REDIS_URL);
+let subClient = redis.createClient(REDIS_URL, { return_buffers: true });
 io.adapter(redisSocket({ pubClient, subClient }));
 
 io.on('connection', (socket) => {
