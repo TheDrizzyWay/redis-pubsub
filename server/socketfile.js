@@ -3,17 +3,18 @@ import express from 'express';
 import socket from 'socket.io';
 import redis from 'redis';
 import redisSocket from 'socket.io-redis';
-import dotenv from 'dotenv';
+import cors from 'cors';
 import storage from './memoryStorage';
+import { redisUrl } from './config';
 
 const app = express();
+app.use(express.json());
+app.use(cors());
 const server = http.createServer(app);
 const io = socket(server);
-dotenv.config();
 
-const { REDIS_URL } = process.env;
-let pubClient = redis.createClient(REDIS_URL);
-let subClient = redis.createClient(REDIS_URL, { return_buffers: true });
+let pubClient = redis.createClient(redisUrl);
+let subClient = redis.createClient(redisUrl, { return_buffers: true });
 io.adapter(redisSocket({ pubClient, subClient }));
 
 io.on('connection', (socket) => {
