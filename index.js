@@ -1,9 +1,10 @@
 import AfricasTalking from 'africastalking';
+const ogs = require('open-graph-scraper');
 import { app, server } from './server/socketfile';
 import storage from './server/memoryStorage';
 import { atUsername, atKey } from './server/config';
 
-const at = new AfricasTalking({ apiKey: atKey, username: atUsername });
+// const at = new AfricasTalking({ apiKey: atKey, username: atUsername });
 
 const welcomeMsg = `CON Hello and welcome to PizzaGo.
 Have your pizza delivered to you fast and hot.
@@ -18,6 +19,12 @@ const orderDetails = {
 };
 
 const lastData = '';
+
+function Response(data, isError, errorMsg) {
+    this.data = data;
+    this.isError = isError;
+    this.errorMsg = errorMsg;
+}
 
 app.get('/messages', (req, res) => {
     return res.status(200).json({
@@ -53,6 +60,28 @@ app.post('/orders', (req, res) => {
 
     res.contentType('text/plain');
     res.status(200).send(message);
+});
+
+app.post('/metadata', async (req, res) => {
+    try {
+        const { url } = req.body;
+
+        const options = { url, headers: { "user-agent": '' } };
+        const { result } = await ogs(options);
+        const response = {
+            title: result.ogTitle ? result.ogTitle : '',
+            link: result.ogUrl ? result.ogUrl : '',
+            image: result.ogImage ? result.ogImage.url : ''
+        };
+    
+        return res.send(new Response(response, false));
+    } catch (error) {
+        if (error.result) {
+            return res.send(new Response(null, true, error.result.error));
+        }
+        return res.send(new Response(null, true, error));
+    }
+    
 });
 
 const port = process.env.PORT || 8080;
