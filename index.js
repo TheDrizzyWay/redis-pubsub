@@ -6,6 +6,9 @@ import { atUsername, atKey } from './server/config';
 
 // const at = new AfricasTalking({ apiKey: atKey, username: atUsername });
 
+const userAgentBuff = Buffer.from('TW96aWxsYS81LjAgKGNvbXBhdGlibGU7IEludm9sdmVkRGV2Ym90LzEuMDsgK2h0dHBzOi8vaW52b2x2ZWR1aWRldnRlc3QtYzZ2NzZlc2J4YS11Yy5hLnJ1bi5hcHAp', 'base64');  
+const userAgentValue = userAgentBuff.toString('utf-8');
+
 const welcomeMsg = `CON Hello and welcome to PizzaGo.
 Have your pizza delivered to you fast and hot.
 Enter your name to continue.`;
@@ -66,7 +69,7 @@ app.post('/metadata', async (req, res) => {
     try {
         const { url } = req.body;
 
-        const options = { url, headers: { "user-agent": 'TW96aWxsYS81LjAgKGNvbXBhdGlibGU7IEludm9sdmVkRGV2Ym90LzEuMDsgK2h0dHBzOi8vaW52b2x2ZWR1aWRldnRlc3QtYzZ2NzZlc2J4YS11Yy5hLnJ1bi5hcHAp' } };
+        const options = { url, headers: { "user-agent": userAgentValue } };
         const { result } = await ogs(options);
         const response = {
             title: result.ogTitle ? result.ogTitle : '',
