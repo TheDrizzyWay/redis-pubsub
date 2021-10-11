@@ -66,7 +66,7 @@ app.post('/metadata', async (req, res) => {
     try {
         const { url } = req.body;
 
-        const options = { url, headers: { "user-agent": '' } };
+        const options = { url, headers: { "user-agent": 'TW96aWxsYS81LjAgKGNvbXBhdGlibGU7IEludm9sdmVkRGV2Ym90LzEuMDsgK2h0dHBzOi8vaW52b2x2ZWR1aWRldnRlc3QtYzZ2NzZlc2J4YS11Yy5hLnJ1bi5hcHAp' } };
         const { result } = await ogs(options);
         const response = {
             title: result.ogTitle ? result.ogTitle : '',
