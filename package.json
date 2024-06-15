@@ -33,7 +33,7 @@
     "socket.io-redis": "^5.2.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.6.4",
+    "@babel/cli": "^7.24.7",
     "@babel/core": "^7.6.4",
     "@babel/node": "^7.6.3",
     "@babel/plugin-transform-runtime": "^7.6.2",
