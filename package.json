@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/TheDrizzyWay/pubsubtest-backend#readme",
   "dependencies": {
-    "@babel/runtime": "^7.6.3",
+    "@babel/runtime": "^7.26.10",
     "africastalking": "^0.6.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
